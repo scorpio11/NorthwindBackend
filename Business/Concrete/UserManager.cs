@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Core.Entities.Concrete;
+using Core.Utilities.Security.Jwt;
 using DataAccess.Abstract;
 using System;
 using System.Collections.Generic;
