@@ -17,5 +17,9 @@ namespace Business.Constants
         public static string CategoryUpdated = "Kategori başarıyla güncellendi";
 
         public static string UserNotFound = "Kullanıcı bulunamadı";
+        public static string PasswordError = "Şifre hatalı";
+        public static string SuccessfullLogin = "Sisteme giriş başarılı";
+        public static string UserAlreadyExist = "Bu kullanıcı zaten mevcut";
+        public static string UserRegistered = "Kullanıcı başarıyla kaydedildi.";
     }
 }
