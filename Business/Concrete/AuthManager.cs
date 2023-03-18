@@ -28,8 +28,10 @@ namespace Business.Concrete
 
         public IDataResult<Core.Utilities.Security.Jwt.AccessToken> CreateAccessToken(User user)
         {
-            throw new NotImplementedException();
-        }
+            var claims = _userService.GetClaims(user);
+            var accessToken = _tokenHelper.CreateToken(user, claims);
+            return new SuccessDataResult<Core.Utilities.Security.Jwt.AccessToken>(accessToken, Messages.AccessTokenCreated);
+        } 
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
