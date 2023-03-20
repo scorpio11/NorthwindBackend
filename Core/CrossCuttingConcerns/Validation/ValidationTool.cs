@@ -1,0 +1,24 @@
+﻿using FluentValidation;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Core.CrossCuttingConcerns.Validation
+{
+    public static class ValidationTool
+    {
+        public static void Validate(IValidator validator, object entity)
+        {
+            //ProductValidator productValidator = new ProductValidator();
+            var result = validator.Validate((IValidationContext)entity);
+            if (!result.IsValid)
+            {
+                throw new ValidationException(result.Errors);
+            }
+        }
+    }
+}
