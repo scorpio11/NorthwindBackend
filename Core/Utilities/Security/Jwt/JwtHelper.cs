@@ -12,17 +12,18 @@ namespace Core.Utilities.Security.Jwt
     {
         private readonly IConfiguration _configuration;
         private readonly TokenOptions _tokenOptions;
-        private readonly DateTime _accessTokenExpiration;
+        private DateTime _accessTokenExpiration;
 
         public JwtHelper(IConfiguration configuration)
         {
             _configuration = configuration;
             _tokenOptions = _configuration.GetSection("TokenOptions").Get<TokenOptions>();
-            _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
+            
         }
 
         public AccessToken CreateToken(User user, List<OperationClaim> operationClaims)
         {
+            _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
             var securityKey= SecurityKeyHelper.CreateSecurityKey(_tokenOptions.SecurityKey);
             var singingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);
             var jwt = CreateJwtSecurityToken(_tokenOptions, user, singingCredentials, operationClaims);

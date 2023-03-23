@@ -4,6 +4,9 @@ using Business.DependencyResolvers.Autofac;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Core.Extensions;
+using Core.Utilities.IoC;
+using Core.DependencyResolvers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +43,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddDependencyResolvers(new ICoreModule[]
+{
+    new CoreModule()
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -48,6 +56,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.ConfigureCustomExceptionMiddleware();
 
 app.UseCors(builder=>builder.WithOrigins("http://localhost:3000").AllowAnyHeader());
 
